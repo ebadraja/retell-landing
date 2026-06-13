@@ -13,12 +13,9 @@
   ═══════════════════════════════════════════════════════
 -->
 <script id="retell-widget" src="https://dashboard.retellai.com/retell-widget.js" type="module"
-  data-public-key="public_key_0902c4fe6b7d9bc4c558c"
-  data-agent-id="agent_3ec0799dfd811fe2e09cbcd31b"
-  data-widget="callback"
-  data-phone-number="+43YOUR_NUMBER"
-  data-title="BYD Wien anrufen"
-  data-countries="AT,DE,CH,TR,RS,BA,HR"
+  data-voice-public-key="public_key_0902c4fe6b7d9bc4c558c"
+  data-voice-agent-id="agent_3ec0799dfd811fe2e09cbcd31b"
+  data-title="Speak to Anna"
   data-color="#e63946"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -191,7 +188,7 @@ footer p+p{margin-top:8px}
 <section class="cta-section" id="try">
   <div class="section-eyebrow">Demo</div>
   <h2>Sprechen Sie mit <span class="gradient">Anna</span></h2>
-  <p>Klicken Sie auf den Button. Geben Sie Ihre Nummer ein. Anna ruft Sie in Sekunden zurueck.</p>
+  <p>Klicken Sie auf den Button und sprechen Sie direkt mit Anna ueber Ihr Mikrofon.</p>
   <button class="cta-big" onclick="triggerRetellWidget()">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
     Talk Now
@@ -217,7 +214,14 @@ const so=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isI
 so.observe(document.getElementById('stats'));
 const ro=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.style.opacity='1';entry.target.style.transform='translateY(0)'}})},{threshold:0.1});
 document.querySelectorAll('.feat-card,.lang-card,.car-info').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(30px)';el.style.transition='opacity 0.6s ease,transform 0.6s ease';ro.observe(el)});
-function triggerRetellWidget(){const sels=['[data-retell-widget-button]','.retell-widget-button','button[class*="retell"]','#retell-widget-button','div[class*="retell"] button'];for(const s of sels){const b=document.querySelector(s);if(b){b.click();return}}const all=document.querySelectorAll('button');for(const b of all){const r=b.getBoundingClientRect();const st=window.getComputedStyle(b);if(st.position==='fixed'&&r.bottom>window.innerHeight-120&&r.right>window.innerWidth-120&&!b.closest('.talk-float')){b.click();return}}alert('Bitte klicken Sie auf den Telefon-Button unten rechts.')}
+function triggerRetellWidget() {
+  const btn = document.querySelector('[data-retell-widget-button]');
+  if (btn) {
+    btn.click();
+  } else {
+    console.error("Retell voice widget not loaded");
+  }
+}
 document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')slideCar(-1);if(e.key==='ArrowRight')slideCar(1)});
 </script>
 </body>
